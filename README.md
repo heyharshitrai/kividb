@@ -211,11 +211,11 @@ the internet without a password.
 
 The release page has `.deb` and `.rpm` packages for `amd64` and `arm64`. They
 install the binary, a systemd unit, a `kividb` system user, and a default
-`/etc/kividb/kividb.conf` that listens on loopback only:
+`/etc/kividb/kividb.conf` that listens on loopback only. Installing enables and
+starts the unit, and an upgrade restarts it:
 
 ```bash
 sudo apt install ./kividb_amd64.deb     # or: sudo rpm -i kividb.x86_64.rpm
-sudo systemctl start kividb
 redis-cli -p 6380 PING
 ```
 

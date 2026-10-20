@@ -16,7 +16,6 @@ ExecStart=/usr/bin/kividb
 WorkingDirectory=/var/lib/kividb
 StateDirectory=kividb
 StateDirectoryMode=0750
-RuntimeDirectory=kividb
 
 Restart=on-failure
 RestartSec=2s

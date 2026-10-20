@@ -30,9 +30,22 @@ contents:
     dst: /usr/lib/systemd/system/kividb.service
     file_info:
       mode: 0644
+  # The config can hold requirepass, and CONFIG REWRITE writes a temporary file
+  # beside it and renames that over the file, so the directory has to belong to
+  # the server user as well as the file.
+  - dst: /etc/kividb
+    type: dir
+    file_info:
+      mode: 0750
+      owner: kividb
+      group: kividb
   - src: ./packaging/kividb.conf
     dst: /etc/kividb/kividb.conf
     type: config|noreplace
+    file_info:
+      mode: 0640
+      owner: kividb
+      group: kividb
   - dst: /var/lib/kividb
     type: dir
     file_info:
