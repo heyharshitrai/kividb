@@ -7,6 +7,10 @@ vendor: "KIVIDB PRIVATE LIMITED"
 homepage: "https://github.com/kividbio/kividb"
 description: "Fast Redis-compatible in-memory store written in Rust."
 license: "AGPL-3.0-only"
+scripts:
+  preinstall: ./packaging/scripts/preinstall.sh
+  postinstall: ./packaging/scripts/postinstall.sh
+  preremove: ./packaging/scripts/preremove.sh
 contents:
   - src: ./target/release/kividb
     dst: /usr/bin/kividb
@@ -20,3 +24,18 @@ contents:
     dst: /usr/share/doc/kividb/NOTICE
     file_info:
       mode: 0644
+  # A packaged daemon needs a unit to start it and an unprivileged user to run
+  # as, and its data needs a home of its own.
+  - src: ./packaging/kividb.service
+    dst: /usr/lib/systemd/system/kividb.service
+    file_info:
+      mode: 0644
+  - src: ./packaging/kividb.conf
+    dst: /etc/kividb/kividb.conf
+    type: config|noreplace
+  - dst: /var/lib/kividb
+    type: dir
+    file_info:
+      mode: 0750
+      owner: kividb
+      group: kividb
